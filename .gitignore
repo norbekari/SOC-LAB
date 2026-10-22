@@ -1,0 +1,12 @@
+# Captures réseau et images de VM (trop lourdes)
+*.pcap
+*.pcapng
+*.iso
+*.qcow2
+*.ova
+# Secrets
+wazuh-install-files.tar
+*passwords*
+*.key
+id_*
+.env
