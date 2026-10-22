@@ -16,3 +16,7 @@
 - Wazuh 4.14 installé en tout-en-un (indexer, manager, dashboard, filebeat) sur wazuh-srv, dashboard accessible sur https://10.10.10.10
 - Dépôt apt Wazuh désactivé pour éviter une montée de version non maîtrisée
 - Snapshot `phase1-wazuh-ok`
+- VM win-pc01 : Windows 11 Enterprise Eval 26H2, 2 vCPU, 4 Go RAM, 60 Go, UEFI + TPM émulé, IP 10.10.10.20
+- Problèmes : commande TPM invalide (`emulated` → `emulator`) ; règle ICMP : syntaxe netsh incompatible avec PowerShell → `New-NetFirewallRule`
+- Comptes : lab.admin (administrateur), user.test (cible des scénarios)
+- Snapshot `windows-propre`
