@@ -13,3 +13,6 @@
 - Problème : `ubuntu-lv` n'occupait que 24 Go sur 48 → corrigé avec `lvextend -r -l +100%FREE`
 - Hostname corrigé de `wazuhsrv` en `wazuh-srv` (cohérence dans les logs)
 - Snapshot `ubuntu-propre` pris avant l'installation de Wazuh
+- Wazuh 4.14 installé en tout-en-un (indexer, manager, dashboard, filebeat) sur wazuh-srv, dashboard accessible sur https://10.10.10.10
+- Dépôt apt Wazuh désactivé pour éviter une montée de version non maîtrisée
+- Snapshot `phase1-wazuh-ok`
