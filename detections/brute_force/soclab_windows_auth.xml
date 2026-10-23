@@ -1,0 +1,14 @@
+<group name="soclab,windows,authentication,">
+
+  <!-- 100100 : 5 echecs de connexion sur le MEME COMPTE en 2 minutes -->
+  <rule id="100100" level="10" frequency="5" timeframe="120">
+    <if_matched_sid>60122</if_matched_sid>
+    <same_field>win.eventdata.targetUserName</same_field>
+    <description>SOC-Lab : serie d'echecs d'authentification sur le compte $(win.eventdata.targetUserName)</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+    <group>authentication_failures,soclab_bruteforce,</group>
+  </rule>
+
+</group>
