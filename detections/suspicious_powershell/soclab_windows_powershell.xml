@@ -1,0 +1,28 @@
+<group name="soclab,windows,powershell,">
+
+  <!-- 100200 : PowerShell lance avec une commande encodee (Security 4688) -->
+  <rule id="100200" level="10">
+    <if_sid>67027</if_sid>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)(powershell|pwsh)\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)\s-(e|ec|en\w*)\s</field>
+    <description>SOC-Lab : PowerShell avec commande encodee (parent : $(win.eventdata.parentProcessName), compte : $(win.eventdata.subjectUserName))</description>
+    <mitre>
+      <id>T1059.001</id>
+      <id>T1027</id>
+    </mitre>
+    <group>soclab_powershell,</group>
+  </rule>
+
+  <!-- 100201 : PowerShell en fenetre cachee ou avec contournement de la politique d'execution -->
+  <rule id="100201" level="8">
+    <if_sid>67027</if_sid>
+    <field name="win.eventdata.newProcessName" type="pcre2">(?i)(powershell|pwsh)\.exe$</field>
+    <field name="win.eventdata.commandLine" type="pcre2">(?i)(\s-w\w*\s+hidden|\s-(ep|ex\w*)\s+bypass)</field>
+    <description>SOC-Lab : PowerShell en mode cache ou avec contournement de politique (parent : $(win.eventdata.parentProcessName), compte : $(win.eventdata.subjectUserName))</description>
+    <mitre>
+      <id>T1059.001</id>
+    </mitre>
+    <group>soclab_powershell,</group>
+  </rule>
+
+</group>
