@@ -14,4 +14,4 @@ Environnement : WIN-PC01 (agent Wazuh), serveur wazuh-srv. Heures en UTC.
 | T-100200-02 | 100200 / 100201 | Négatif | `powershell -NoProfile -Command "Get-Date"` | Aucune alerte | OK : aucune nouvelle alerte 100200 ni 100201 | 2026-10-31 |
 | T-100200-03 | 100200 / 100201 | Négatif | `cmd /c powershell -nop -c "Get-Process ..."` | Aucune alerte de ces règles | OK : seules les alertes 67027 (niveau 3) | 2026-10-31 |
 | T-100210-01 | 100210 / 92058 | Négatif (filtre) | `sdbinst` lancé par PcaSvc | Pas d'alerte 92058 | En attente : prochain lancement de sdbinst par PcaSvc | 2026-10-31 |
-| T-100210-02 | 92058 | Positif (conservé) | `sdbinst.exe -?` depuis un terminal PowerShell | Alerte 92058 niveau 12 | En attente : alerte 92058 à 19:54:54 UTC, parent à confirmer | 2026-10-31 |
+| T-100210-02 | 92058 | Positif (conservé) | `sdbinst.exe -?` depuis un terminal PowerShell | Alerte 92058 niveau 12 | OK : alerte 92058 à 19:54:54 UTC (sdbinst.exe -?, lab.admin, parent non enregistré par Sysmon) | 2026-10-31 |

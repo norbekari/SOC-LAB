@@ -1,6 +1,6 @@
 # INC-002 : alerte de niveau 12 (92058) et rafale PowerShell, deux faux positifs
 
-**Statut** : clos, avec deux points non vérifiés (voir section 4) · **Analyste** : Nor Bekari · **Date** : 2026-10-31 · **Heures** : UTC
+**Statut** : clos · **Analyste** : Nor Bekari · **Date** : 2026-10-31 · **Heures** : UTC
 
 ## 1. Triage
 - Alerte 92058 « Application Compatibility Database launched » (niveau 12, MITRE T1546.011 : persistance par shim de compatibilité), vue à 16:47, 17:47, 19:31 et 19:54
@@ -20,12 +20,13 @@ La commande exécutée est identique à celle de la politique SCA `cis_win11_ent
 ## 3. Corrélation
 - 92058 : les trois alertes ont le même parent, le service Windows PcaSvc (Assistant de compatibilité des programmes)
 - Rafale : 18 événements de processus contenant `secedit` entre 15:52:04 et 15:52:44, tous sous le compte SYSTEM. Le premier a pour parent `wazuh-agent.exe`. Les alertes 92021 (suppression de fichiers) correspondent au `Remove-Item` de la commande SCA
+- Chronologie de l'agent (ossec.log) : arrêt 15:51:54, démarrage 15:52:02, premier `secedit` lancé par `wazuh-agent.exe` à 15:52:04
 
 ## 4. Qualification
 **Faux positifs.**
 - 92058 : démontré par le parent (service PcaSvc, chemin System32). La règle native ne contrôle que le nom du fichier, jamais le parent
 - Rafale : **démontré** par le parent `wazuh-agent.exe`, le compte SYSTEM et la commande identique à la politique SCA CIS de Wazuh
-- Non vérifié : (a) la date exacte du redémarrage de l'agent par rapport à la rafale (la requête sur le journal Système n'a rien renvoyé) ; (b) l'origine de l'alerte 92058 de 19:54, dont les champs de parent sont vides dans l'alerte
+- Vérifications complémentaires : (a) le journal de l'agent montre un arrêt à 15:51:54 et un redémarrage à 15:52:02 ; le premier `secedit` date de 15:52:04, donc la rafale suit immédiatement le démarrage de l'agent. (b) l'alerte 92058 de 19:54:54 correspond au test `sdbinst.exe -?` lancé depuis un terminal (compte lab.admin, répertoire C:\Users\lab.admin\, intégrité High). Sysmon n'a pas enregistré le parent (ParentProcessGuid nul, seul le PID 8912 est connu) : le filtre 100210, qui n'exclut que le parent PcaSvc, laisse donc l'alerte active, comme voulu
 
 ## 5. Réponse
 Aucun confinement. Règle de réduction du bruit 100210 (niveau 0) : ignore 92058 quand le parent est PcaSvc. Une exécution de `sdbinst.exe` par un autre parent continue d'alerter. Pour la rafale : aucune exclusion pour l'instant ; un PowerShell sous SYSTEM est aussi une piste d'attaque, donc toute exclusion devra porter sur le parent `wazuh-agent.exe` et non sur le nom du processus
@@ -35,3 +36,5 @@ Aucun confinement. Règle de réduction du bruit 100210 (niveau 0) : ignore 9205
 - Les règles natives 92xxx sont bruyantes sur un poste surveillé : l'agent de supervision déclenche des alertes sur lui-même
 - J'avais d'abord avancé une périodicité horaire pour 92058 : les horodatages la contredisent, preuve qu'une hypothèse doit être vérifiée sur les données
 - Amélioration : mesurer le bruit des règles 92xxx et documenter chaque exclusion avec sa preuve
+
+- Un parent non enregistré par Sysmon empêche une exclusion par parent : l'alerte reste active, ce qui est le comportement par défaut souhaitable
