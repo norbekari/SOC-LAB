@@ -1,0 +1,10 @@
+<group name="soclab,tuning,">
+
+  <!-- 100210 : sdbinst lance par le service Windows PcaSvc (comportement normal) : on ignore l'alerte 92058 -->
+  <rule id="100210" level="0">
+    <if_sid>92058</if_sid>
+    <field name="win.eventdata.parentCommandLine" type="pcre2">(?i)svchost\.exe -k LocalSystemNetworkRestricted -p -s PcaSvc</field>
+    <description>SOC-Lab : sdbinst lance par PcaSvc (legitime), alerte 92058 ignoree</description>
+  </rule>
+
+</group>

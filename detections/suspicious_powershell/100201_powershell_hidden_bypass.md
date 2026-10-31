@@ -15,3 +15,7 @@
 
 ## Preuve
 Capture : dashboards/screenshots/s2_alerte_100201.png
+
+## Observations (2026-10-31)
+- Test b : alerte 100201 à 15:45:07.712 UTC, ligne de commande `-ExecutionPolicy Bypass -Command ...`.
+- Le test a contient aussi `-WindowStyle Hidden` mais n'a produit qu'une alerte 100200 : une seule règle déclenche l'alerte d'un événement.

@@ -15,3 +15,7 @@
 
 ## Preuve
 Capture : dashboards/screenshots/s2_alerte_100200.png
+
+## Observations (2026-10-31)
+- Test a : alerte 100200 à 15:45:07.686 UTC, compte lab.admin, parent powershell.exe. Le Base64 se décode en `Write-Output 'SOC-Lab test encode'`.
+- Test négatif : `powershell -NoProfile -Command "Get-Date"` ne déclenche aucune alerte.
