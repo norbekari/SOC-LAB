@@ -19,7 +19,7 @@
 - Rafale : 12 à 22 s après le redémarrage de l'agent Wazuh (15:52:28), avec un PowerShell 32 bits comme l'agent, et des contrôles de politique de verrouillage de compte
 
 ## 4. Qualification
-**Faux positifs.**
+**92058 : faux positif démontré. Rafale PowerShell de 15:52 : faux positif probable, vérification en cours.**
 - 92058 : démontré par le parent (service Windows PcaSvc), le chemin System32 et la périodicité. La règle native ne contrôle que le nom du fichier, jamais le parent
 - Rafale : hypothèse d'un scan de configuration (SCA) de l'agent. **Vérification** : À COMPLÉTER (journal `modulesd:sca`, parent du processus PowerShell dans Sysmon)
 - 92205 : les fichiers `__PSScriptPolicyTest_*.ps1` sont créés par PowerShell lui-même ; ce sont des scripts et non des exécutables, la règle est trop large
