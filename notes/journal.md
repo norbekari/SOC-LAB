@@ -34,3 +34,11 @@
 - Tests : 2 positifs et 2 négatifs, tous OK ; PowerShell lancé par cmd ne déclenche rien à lui seul
 - Erreur de ma part : j'avais supposé que l'agent Windows collectait Sysmon par sa configuration locale. Vérification : ossec.conf ne contient pas Sysmon, donc le bloc dans agent.conf est nécessaire → restauré
 - Limite : la ligne de commande n'est visible que si l'audit 4688 et l'option de ligne de commande sont actifs
+
+## Phase 2 — Scénario 3, intégrité des fichiers (01/11/2026)
+- Configuration : bloc `<syscheck>` dans agent.conf avec `realtime`, `report_changes` et `whodata`, dossier C:\SOC-Lab\Sensible
+- Règles natives observées : 554 (ajouté, niveau 5), 550 (modifié, niveau 7), 553 (supprimé, niveau 7) ; whodata fournit l'auteur et le processus
+- Règles personnalisées 100300 (modifié, niveau 10), 100301 (supprimé, niveau 10), 100302 (créé, niveau 7)
+- Erreur : j'ai remplacé `name="file"` par `name="syscheck.path"` sans avoir diagnostiqué : le nom de champ d'une règle est `file`, `syscheck.path` est celui de l'alerte. Vérifié dans la documentation Wazuh, puis sur les données
+- Erreurs d'environnement : commandes de déploiement lancées sur l'hôte au lieu de la VM (à répéter : vérifier `hostname`) ; `jq` lu pendant l'écriture de alerts.json (ligne incomplète, sans gravité)
+- Tests : 3 positifs et 1 négatif (fichier hors dossier surveillé), tous OK

@@ -15,3 +15,7 @@ Environnement : WIN-PC01 (agent Wazuh), serveur wazuh-srv. Heures en UTC.
 | T-100200-03 | 100200 / 100201 | Négatif | `cmd /c powershell -nop -c "Get-Process ..."` | Aucune alerte de ces règles | OK : seules les alertes 67027 (niveau 3) | 2026-10-31 |
 | T-100210-01 | 100210 / 92058 | Négatif (filtre) | `sdbinst` lancé par PcaSvc | Pas d'alerte 92058 | En attente : prochain lancement de sdbinst par PcaSvc | 2026-10-31 |
 | T-100210-02 | 92058 | Positif (conservé) | `sdbinst.exe -?` depuis un terminal PowerShell | Alerte 92058 niveau 12 | OK : alerte 92058 à 19:54:54 UTC (sdbinst.exe -?, lab.admin, parent non enregistré par Sysmon) | 2026-10-31 |
+| T-100302-01 | 100302 | Positif | Création de test5.txt dans le dossier sensible | Alerte niveau 7 | OK : 14:26:33 UTC, lab.admin | 2026-11-01 |
+| T-100300-01 | 100300 | Positif | Ajout d'une ligne dans notes.txt | Alerte niveau 10 | OK : 14:26:44 UTC, lab.admin | 2026-11-01 |
+| T-100301-01 | 100301 | Positif | Suppression de test5.txt | Alerte niveau 10 | OK : 14:26:54 UTC, lab.admin | 2026-11-01 |
+| T-100300-02 | 100300 à 100302 | Négatif | Création, modification et suppression d'un fichier hors du dossier surveillé | Aucune alerte | OK : aucune alerte pour hors_zone2.txt | 2026-11-01 |

@@ -1,0 +1,33 @@
+<group name="soclab,syscheck,">
+
+  <!-- 100300 : modification d'un fichier du dossier sensible -->
+  <rule id="100300" level="10">
+    <if_sid>550</if_sid>
+    <field name="file" type="pcre2">(?i)soc-lab.sensible</field>
+    <description>SOC-Lab : fichier sensible modifie : $(file)</description>
+    <mitre>
+      <id>T1565.001</id>
+    </mitre>
+    <group>soclab_fim,</group>
+  </rule>
+
+  <!-- 100301 : suppression d'un fichier du dossier sensible -->
+  <rule id="100301" level="10">
+    <if_sid>553</if_sid>
+    <field name="file" type="pcre2">(?i)soc-lab.sensible</field>
+    <description>SOC-Lab : fichier sensible supprime : $(file)</description>
+    <mitre>
+      <id>T1485</id>
+    </mitre>
+    <group>soclab_fim,</group>
+  </rule>
+
+  <!-- 100302 : creation d'un fichier dans le dossier sensible -->
+  <rule id="100302" level="7">
+    <if_sid>554</if_sid>
+    <field name="file" type="pcre2">(?i)soc-lab.sensible</field>
+    <description>SOC-Lab : fichier cree dans le dossier sensible : $(file)</description>
+    <group>soclab_fim,</group>
+  </rule>
+
+</group>

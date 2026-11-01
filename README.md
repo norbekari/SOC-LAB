@@ -20,7 +20,7 @@ KVM, Wazuh, Sysmon (config SwiftOnSecurity), journaux Windows, MITRE ATT&CK, Git
 | 1. Force brute Windows | Terminé | 100100, 100101 | T1110.001, T1078 | detections/brute_force/ et investigations/s1_bruteforce_user_test.md |
 | 2. PowerShell suspect | Terminé | 100200, 100201 | T1059.001, T1027 | detections/suspicious_powershell/ |
 | Incident 002 : faux positifs | Terminé | 100210 (filtre) | T1546.011 (règle native 92058) | investigations/inc002_false_positives_92058.md et detections/tuning/ |
-| 3. Intégrité des fichiers | En cours | | | |
+| 3. Intégrité des fichiers | Terminé | 100300, 100301, 100302 | T1565.001, T1485 | detections/file_integrity/ et investigations/s3_fim_config_ini.md |
 | 4. Activité réseau | À venir | | | |
 | 5. Linux / SSH | À venir | | | |
 | 6. Incident complet | À venir | | | |
@@ -29,6 +29,8 @@ KVM, Wazuh, Sysmon (config SwiftOnSecurity), journaux Windows, MITRE ATT&CK, Git
 - **Scénario 1** : 2 règles personnalisées, 5 cas de test validés. La série d'échecs est détectée 27 s après le premier échec, la connexion réussie suivante 1 min 45 après. La règle native 60204 ne détecte pas la série (regroupement par IP) : 100100 regroupe par compte.
 - **Scénario 2** : 2 règles personnalisées sur le journal Sécurité (événement 4688), 4 cas de test validés (2 positifs, 2 négatifs). Une commande PowerShell lancée par `cmd.exe` sans option suspecte ne déclenche rien, ce qui évite un bruit important.
 - **Incident 002** : une alerte de niveau 12 (règle native 92058) et une rafale d'alertes PowerShell, toutes deux qualifiées de faux positifs avec preuves : parent `PcaSvc` pour la première, parent `wazuh-agent.exe` (scan de configuration SCA) pour la seconde. Un filtre documenté (100210) réduit le bruit sans masquer les exécutions suspectes.
+
+- **Scénario 3** : surveillance en temps réel d'un dossier sensible, avec l'auteur et le processus (whodata). 3 règles personnalisées, 4 cas de test validés. Détection en environ 2 secondes. La détection ne couvre que les dossiers déclarés.
 
 ## Structure du dépôt
 - detections/ : règles XML et fiches de détection, filtres dans detections/tuning/
